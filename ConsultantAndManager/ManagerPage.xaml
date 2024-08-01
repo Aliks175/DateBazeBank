@@ -22,7 +22,6 @@
             <TextBlock Margin="249,152,16,0" TextWrapping="Wrap" Text="Серия и номер паспорта" VerticalAlignment="Top" Height="32"/>
             <Button Name="SaveButton" Content="Сохранить" HorizontalAlignment="Left" Margin="50,211,0,0" VerticalAlignment="Top" Height="30" Width="136" Click="Save"/>
             <Button Name="RefreshButton" Content="Обновить" HorizontalAlignment="Left" Margin="249,211,0,0" VerticalAlignment="Top" Height="30" Width="135" Click="RefrushButton" />
-            <TextBlock Margin="249,4,0,54" TextWrapping="Wrap" Text="Изменено от 31.07.2024 Консультант" Height="32" Width="216" Cursor="" RenderTransformOrigin="0.5,0.5" Panel.ZIndex="1" HorizontalAlignment="Left" VerticalAlignment="Top" />
-        </Grid>
+           </Grid>
     </Grid>
 </Page>

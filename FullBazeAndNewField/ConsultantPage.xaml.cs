@@ -19,35 +19,80 @@ namespace FullBazeAndNewField
 
         private void Save(object sender, RoutedEventArgs e)
         {
-            CheckInput(out double newPhoneNumber);
-            _сlient = new Сlient(LastName.Text, NameField.Text, MiddleName.Text, newPhoneNumber, _сlient.PassportSeriesAndNumber);
+            _consultant.ChangeDate(PhoneNumber.Text);
+            _сlient = _consultant.SaveСlient();
             SaveСlient?.Invoke(_сlient);
-            ConsultantWork(_сlient);
+            ShowInfo();
         }
 
-        private void CheckInput(out double newPhoneNumber)
+
+        private void JOol()
         {
-            newPhoneNumber = _consultant.PhoneNumber;
-            if (double.TryParse(PhoneNumber.Text, out double phoneNumber))
+            //SSS(ChangeControl.WhatField.Name);
+            //SSS(ChangeControl.WhatField.LastName);
+            //SSS(ChangeControl.WhatField.MiddleName);
+            SSS(ChangeControl.WhatField.PhoneNumber);
+            //SSS(ChangeControl.WhatField.PassportSeriesAndNumber);
+        }
+
+        private void SSS(ChangeControl.WhatField field)
+        {
+            switch (field)
             {
-                newPhoneNumber = phoneNumber;
+                //case ChangeControl.WhatField.LastName:
+                //    OIU(PhoneNumberInfo, field);
+                //    break;
+                //case ChangeControl.WhatField.Name:
+                //    OIU(LastName, NameField, MiddleName, field);
+                //    break;
+                //case ChangeControl.WhatField.MiddleName:
+                //    OIU(LastName, NameField, MiddleName, field);
+                //    break;
+                case ChangeControl.WhatField.PhoneNumber:
+                    OIU(PhoneNumberInfo,field);
+                    break;
+                //case ChangeControl.WhatField.PassportSeriesAndNumber:
+                //    OIU(LastName, NameField, MiddleName, field);
+                //    break;
+                default:
+                    break;
+            }
+        }
+
+        private void OIU(TextBlock textBlock, ChangeControl.WhatField field) //TextBox textB2lock, TextBox textB1lock, ChangeControl.WhatField field)
+        {
+            textBlock.Text = "";
+            HHHJ(_consultant.clientInfo.Show(ChangeControl.FiendTargetOnDictionary.addOrChange, field), textBlock);
+            HHHJ(_consultant.clientInfo.Show(ChangeControl.FiendTargetOnDictionary.timesChengers, field), textBlock);
+            HHHJ(_consultant.clientInfo.Show(ChangeControl.FiendTargetOnDictionary.whoChanged, field), textBlock);
+        }
+
+        private void HHHJ(string aaa, TextBlock textBlock)
+        {
+            textBlock.Visibility = Visibility.Hidden;
+            if (aaa != null)
+            {
+                textBlock.Visibility = Visibility.Visible;
+                textBlock.Text += aaa;
             }
         }
 
         private void ConsultantWork(Сlient сlient)
         {
             _consultant.NewClient(сlient);
-            _сlient = сlient;
             ShowInfo();
         }
 
         private void ShowInfo()
         {
-            LastName.Text = _consultant.LastName;
-            NameField.Text = _consultant.Name;
-            MiddleName.Text = _consultant.MiddleName;
-            PhoneNumber.Text = _consultant.PhoneNumber.ToString();
-            PassportSeriesAndNumber.Text = _consultant.PassportSeriesAndNumber;
+            _consultant.ShowInfo(out string lastName, out string name, out string middleName, out double phoneNumber, out string passportSeriesAndNumber);
+
+            LastName.Text = lastName;
+            NameField.Text = name;
+            MiddleName.Text = middleName;
+            PhoneNumber.Text = phoneNumber.ToString();
+            PassportSeriesAndNumber.Text = passportSeriesAndNumber;
+            JOol();
         }
 
         private void RefrushButton(object sender, RoutedEventArgs e)

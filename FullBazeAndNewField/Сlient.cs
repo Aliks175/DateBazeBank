@@ -5,18 +5,21 @@ namespace FullBazeAndNewField
 {
     public class Сlient
     {
-        public string LastName { get;  set; }
+        public string LastName { get; private set; }
 
-        public string Name { get;  set; }
+        public string Name { get; private set; }
 
-        public string MiddleName { get;  set; }
+        public string MiddleName { get; private set; }
 
-        public double PhoneNumber { get;  set; }
+        public double PhoneNumber { get; private set; }
 
-        public double PassportSeriesAndNumber { get;  set; }
+        public double PassportSeriesAndNumber { get; private set; }
+
+        public ChangeControl changeControl;
 
         public Сlient(string lastName, string name, string middleName, double phoneNumber, double passportSeriesAndNumber = 0)
         {
+            changeControl = new ChangeControl(6);
             LastName = lastName;
             Name = name;
             MiddleName = middleName;

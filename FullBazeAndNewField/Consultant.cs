@@ -1,20 +1,31 @@
 ﻿namespace FullBazeAndNewField
 {
-    public class Consultant
+    public interface IWorkeble
     {
-        private double _newNumber;
-        private bool _isCompleated;
-        private int _lengthNumber = 11;
+        void ChangeDate(string phoneNumber);
+        Сlient SaveСlient();
+    }
 
-        public string LastName { get; private set; }
+    public class Consultant : IWorkeble
+    {
+        protected string _lastName;
 
-        public string Name { get; private set; }
+        protected string _name;
 
-        public string MiddleName { get; private set; }
+        protected string _middleName;
 
-        public double PhoneNumber { get; private set; }
+        protected double _phoneNumber;
 
-        public string PassportSeriesAndNumber { get; protected set; }
+        protected string _displayPassportSeriesAndNumber;
+
+        protected double _valuePassportSeriesAndNumber;
+
+        public ClientInfo clientInfo;
+
+        public Consultant()
+        {
+            clientInfo = new ClientInfo();
+        }
 
         public override string ToString()
         {
@@ -23,68 +34,68 @@
 
         public void NewClient(Сlient сlients)
         {
-            LastName = сlients.LastName;
-            Name = сlients.Name;
-            MiddleName = сlients.MiddleName;
-            PhoneNumber = сlients.PhoneNumber;
-            CheckCompleatePassport(сlients.PassportSeriesAndNumber);
+            _lastName = сlients.LastName;
+            _name = сlients.Name;
+            _middleName = сlients.MiddleName;
+            _phoneNumber = сlients.PhoneNumber;
+            _valuePassportSeriesAndNumber = сlients.PassportSeriesAndNumber;
+            CheckDisplayPassport(сlients.PassportSeriesAndNumber);
+
         }
 
-        protected virtual void CheckCompleatePassport(double passportSeriesAndNumber)
+        protected virtual void CheckDisplayPassport(double passportSeriesAndNumber)
         {
             if (passportSeriesAndNumber < 1)
-                PassportSeriesAndNumber = "Данных нет";
+                _displayPassportSeriesAndNumber = "Данных нет";
             else
-                PassportSeriesAndNumber = new string('*', passportSeriesAndNumber.ToString().Length);
+                _displayPassportSeriesAndNumber = new string('*', passportSeriesAndNumber.ToString().Length);
         }
 
-        public string PrintLastName()
+        public void ShowInfo(out string lastName, out string name, out string middleName, out double phoneNumber, out string passportSeriesAndNumber)
         {
-            return LastName;
+            lastName = this._lastName;
+            name = _name;
+            middleName = _middleName;
+            phoneNumber = _phoneNumber;
+            passportSeriesAndNumber = _displayPassportSeriesAndNumber;
         }
 
-        public string ShowName()
+        public Сlient SaveСlient()
         {
-            return Name;
+            Сlient сlient = new Сlient(_lastName, _name, _middleName, _phoneNumber, _valuePassportSeriesAndNumber);
+            сlient.changeControl = clientInfo.changeControl;
+            return сlient;
         }
 
-        public string ShowMiddleName()
+        public void ChangeDate(string tryPhoneNumber)
         {
-            return MiddleName;
+            NewPhoneNumber(CheckInput(tryPhoneNumber, _phoneNumber));
         }
 
-        public double ShowPhoneNumber()
+        protected void NewPhoneNumber(double newPhone)
         {
-            return PhoneNumber;
-        }
-
-        public void TrySetPhoneNumber(string newNumber)
-        {
-
-            if (double.TryParse(newNumber, out double number))
+            if (_phoneNumber != newPhone)
             {
-                if (TrySetNewNumber(number))
-                    SetNewNumber();
+                if (_phoneNumber == 0)
+                {
+                    clientInfo.LastChange(ChangeControl.WhatField.PhoneNumber, ChangeControl.WhatHasChanged.Add, ChangeControl.User.Consultant);
+                }
+                else
+                {
+                    clientInfo.LastChange(ChangeControl.WhatField.PhoneNumber, ChangeControl.WhatHasChanged.Change, ChangeControl.User.Consultant);
+                }
+                _phoneNumber = newPhone;
             }
         }
 
-        public virtual string ShowPassportSeriesAndNumber()
+        protected double CheckInput(string phoneNumber, double oldNumber)
         {
-            return PassportSeriesAndNumber;
-        }
-
-        private bool TrySetNewNumber(double newNumber)
-        {
-            _isCompleated = _lengthNumber == newNumber.ToString().Length;
-            if (_isCompleated)
-                _newNumber = newNumber;
-            return _isCompleated;
-        }
-
-        private void SetNewNumber()
-        {
-            if (_isCompleated)
-                PhoneNumber = _newNumber;
+            double newPhone = oldNumber;
+            if (double.TryParse(phoneNumber, out double newPhoneNumber))
+            {
+                newPhone = newPhoneNumber;
+            }
+            return newPhone;
         }
     }
 }

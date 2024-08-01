@@ -1,38 +1,78 @@
 ﻿using System;
 using System.Collections.Generic;
+using static FullBazeAndNewField.ChangeControl;
 
 namespace FullBazeAndNewField
 {
-    internal class ClientInfo
+    public struct ChangeControl
     {
-        private Сlient _сlient;
+        public Dictionary<string, string[]> InfoChanges;
 
-        private List<DateTime> _timesChengers;
-        private List<bool> _dateChengers;
-        private List<bool> _addOrChange;
-        private List<string> _whoChanged;
-
-        //public string LastName { get; set; }
-
-        //public string Name { get; set; }
-
-        //public string MiddleName { get; set; }
-
-        //public double PhoneNumber { get; set; }
-
-        //public double PassportSeriesAndNumber { get; set; }
-        public ClientInfo(Сlient сlient)
+        public ChangeControl(int value = 6)
         {
-            _сlient = сlient;
-            _timesChengers = new List<DateTime>();
-            _dateChengers = new List<bool>();
-            _addOrChange = new List<bool>();
-            _whoChanged = new List<string>();
+            InfoChanges = new Dictionary<string, string[]>();
+            string[] timesChengers = new string[value];
+            string[] addOrChange = new string[value];
+            string[] whoChanged = new string[value];
+            InfoChanges.Add("timesChengers", timesChengers);
+            InfoChanges.Add("addOrChange", addOrChange);
+            InfoChanges.Add("whoChanged", whoChanged);
         }
 
-        public void SetLastName()
+        public enum User
         {
+            Manager,
+            Consultant
+        }
 
+        public enum FiendTargetOnDictionary
+        {
+            timesChengers,
+            addOrChange,
+            whoChanged
+        }
+
+        public enum WhatHasChanged
+        {
+            Add,
+           // Del,
+            Change 
+        }
+
+        public enum WhatField
+        {
+            LastName,
+            Name,
+            MiddleName,
+            PhoneNumber,
+            PassportSeriesAndNumber
+        }
+    }
+
+    public class ClientInfo
+    {
+        public ChangeControl changeControl {  get;private set; }
+
+        public ClientInfo()
+        {
+            changeControl = new ChangeControl(6);
+        }
+
+        //public ClientInfo(ChangeControl newchangeControl)
+        //{
+        //    changeControl = newchangeControl;
+        //}
+
+        public void LastChange(ChangeControl.WhatField field, ChangeControl.WhatHasChanged changer, ChangeControl.User user)
+        {
+            changeControl.InfoChanges["timesChengers"][(int)field] = DateTime.Now.ToString();
+            changeControl.InfoChanges["addOrChange"][(int)field] = changer.ToString();
+            changeControl.InfoChanges["whoChanged"][(int)field] = user.ToString();
+        }
+
+        public string Show(FiendTargetOnDictionary fiendTarget, ChangeControl.WhatField field)
+        {
+            return changeControl.InfoChanges[fiendTarget.ToString()][(int)field];
         }
     }
 }

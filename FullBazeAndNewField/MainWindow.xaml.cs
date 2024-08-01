@@ -90,9 +90,10 @@ namespace FullBazeAndNewField
             ChooseClient.SelectedIndex = index;
             Serilaze?.Invoke(_сlients);
         }
+
         private void HideClient(object sender, RoutedEventArgs e)
         {
-            ChooseClient.Visibility= (bool)_managerPage.CheckNewClient.IsChecked? Visibility.Collapsed : Visibility.Visible;
+            ChooseClient.Visibility= (bool)_managerPage.CheckNewClient.IsChecked? Visibility.Hidden : Visibility.Visible;
         }
 
         private void ChooseClient_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)

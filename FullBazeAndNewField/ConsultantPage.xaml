@@ -22,10 +22,12 @@
             <TextBlock Margin="249,152,16,0" TextWrapping="Wrap" Text="Серия и номер паспорта" VerticalAlignment="Top" Height="32"/>
             <Button Content="Сохранить" HorizontalAlignment="Left" Margin="50,211,0,0" VerticalAlignment="Top" Height="30" Width="136" Click="Save"/>
             <Button Content="Обновить" HorizontalAlignment="Left" Margin="249,211,0,0" VerticalAlignment="Top" Height="30" Width="135" Click="RefrushButton" />
+            <TextBlock Name="PhoneNumberInfo" Margin="10,189,0,0" TextWrapping="Wrap" Text="--" Height="32" Width="360" Cursor="" RenderTransformOrigin="0.5,0.5" Panel.ZIndex="1" HorizontalAlignment="Left" VerticalAlignment="Top" />
+
         </Grid>
 
         <Grid Margin="419,0,0,0">
-            
+
         </Grid>
     </Grid>
 </Page>
