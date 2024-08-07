@@ -14,7 +14,6 @@ namespace FullBazeAndNewField
         {
             InitializeComponent();
             _consultant = new Consultant();
-            MainWindow.ShowClient += ConsultantWork;
         }
 
         private void Save(object sender, RoutedEventArgs e)
@@ -26,58 +25,77 @@ namespace FullBazeAndNewField
         }
 
 
-        private void JOol()
+        private void ShowInfoChangers()
         {
-            //SSS(ChangeControl.WhatField.Name);
-            //SSS(ChangeControl.WhatField.LastName);
-            //SSS(ChangeControl.WhatField.MiddleName);
-            SSS(ChangeControl.WhatField.PhoneNumber);
-            //SSS(ChangeControl.WhatField.PassportSeriesAndNumber);
+            VisibilityText();
+            int indexTargetOnDictionary = 0;
+            foreach (var InfoChanger in _consultant.ClientInfo.ChangeControl.InfoChanges)
+            {
+                for (int i = 0; i < InfoChanger.Value.Length; i++)
+                {
+                    if (InfoChanger.Value[i] != " ")
+                        ChooseOutputField(i, indexTargetOnDictionary, InfoChanger.Value[i]);
+                }
+                indexTargetOnDictionary++;
+            }
         }
 
-        private void SSS(ChangeControl.WhatField field)
+        private void VisibilityText()
         {
-            switch (field)
+            LastNameInfo.Visibility = Visibility.Hidden;
+            LastNameInfo.Text = string.Empty;
+            NameFieldInfo.Visibility = Visibility.Hidden;
+            NameFieldInfo.Text = string.Empty;
+            MiddleNameInfo.Visibility = Visibility.Hidden;
+            MiddleNameInfo.Text = string.Empty;
+            PhoneNumberInfo.Visibility = Visibility.Hidden;
+            PhoneNumberInfo.Text = string.Empty;
+            PassportSeriesAndNumberInfo.Visibility = Visibility.Hidden;
+            PassportSeriesAndNumberInfo.Text = string.Empty;
+        }
+
+        private void ChooseOutputField(int indexFieldClient, int indexTargetOnDictionary, string Value)
+        {
+            switch (indexFieldClient)
             {
-                //case ChangeControl.WhatField.LastName:
-                //    OIU(PhoneNumberInfo, field);
-                //    break;
-                //case ChangeControl.WhatField.Name:
-                //    OIU(LastName, NameField, MiddleName, field);
-                //    break;
-                //case ChangeControl.WhatField.MiddleName:
-                //    OIU(LastName, NameField, MiddleName, field);
-                //    break;
-                case ChangeControl.WhatField.PhoneNumber:
-                    OIU(PhoneNumberInfo,field);
+                case 0:
+                    GroupingOfFields(LastNameInfo, indexTargetOnDictionary, Value);
                     break;
-                //case ChangeControl.WhatField.PassportSeriesAndNumber:
-                //    OIU(LastName, NameField, MiddleName, field);
-                //    break;
+                case 1:
+                    GroupingOfFields(NameFieldInfo, indexTargetOnDictionary, Value);
+                    break;
+                case 2:
+                    GroupingOfFields(MiddleNameInfo, indexTargetOnDictionary, Value);
+                    break;
+                case 3:
+                    GroupingOfFields(PhoneNumberInfo, indexTargetOnDictionary, Value);
+                    break;
+                case 4:
+                    GroupingOfFields(PassportSeriesAndNumberInfo, indexTargetOnDictionary, Value);
+                    break;
                 default:
                     break;
             }
         }
 
-        private void OIU(TextBlock textBlock, ChangeControl.WhatField field) //TextBox textB2lock, TextBox textB1lock, ChangeControl.WhatField field)
+        private void GroupingOfFields(TextBlock textBlock, int indexTargetOnDictionary, string Value)
         {
-            textBlock.Text = "";
-            HHHJ(_consultant.clientInfo.Show(ChangeControl.FiendTargetOnDictionary.addOrChange, field), textBlock);
-            HHHJ(_consultant.clientInfo.Show(ChangeControl.FiendTargetOnDictionary.timesChengers, field), textBlock);
-            HHHJ(_consultant.clientInfo.Show(ChangeControl.FiendTargetOnDictionary.whoChanged, field), textBlock);
-        }
-
-        private void HHHJ(string aaa, TextBlock textBlock)
-        {
-            textBlock.Visibility = Visibility.Hidden;
-            if (aaa != null)
+            if (indexTargetOnDictionary == 0)
             {
                 textBlock.Visibility = Visibility.Visible;
-                textBlock.Text += aaa;
+                textBlock.Text += Value;
+            }
+            else if (indexTargetOnDictionary == 1)
+            {
+                textBlock.Text += $" from {Value}";
+            }
+            else if (indexTargetOnDictionary == 2)
+            {
+                textBlock.Text += $" by {Value}";
             }
         }
 
-        private void ConsultantWork(Сlient сlient)
+        public void ConsultantWork(Сlient сlient)
         {
             _consultant.NewClient(сlient);
             ShowInfo();
@@ -85,14 +103,14 @@ namespace FullBazeAndNewField
 
         private void ShowInfo()
         {
-            _consultant.ShowInfo(out string lastName, out string name, out string middleName, out double phoneNumber, out string passportSeriesAndNumber);
+            _consultant.ShowInfo(out string lastName, out string name, out string middleName, out string phoneNumber, out string passportSeriesAndNumber);
 
             LastName.Text = lastName;
             NameField.Text = name;
             MiddleName.Text = middleName;
-            PhoneNumber.Text = phoneNumber.ToString();
+            PhoneNumber.Text = phoneNumber;
             PassportSeriesAndNumber.Text = passportSeriesAndNumber;
-            JOol();
+            ShowInfoChangers();
         }
 
         private void RefrushButton(object sender, RoutedEventArgs e)

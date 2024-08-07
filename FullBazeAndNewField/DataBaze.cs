@@ -1,17 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace FullBazeAndNewField
 {
     internal class DataBaze
     {
-        private List<Сlient> _сlients;
+        private ObservableCollection<Сlient> _сlients;
         private string _lastName;
         private string _name;
         private string _middleName;
         private double _phoneNumber;
         private double _passportSeriesAndNumber;
         private Random _random;
+        private int _countNextСlient;
 
         public DataBaze(int count = 11)
         {
@@ -21,14 +22,14 @@ namespace FullBazeAndNewField
             _phoneNumber = 0;
             _passportSeriesAndNumber = 0;
             _random = new Random();
-            _сlients = new List<Сlient>();
+            _сlients = new ObservableCollection<Сlient>();
             for (int i = 1; i < count; i++)
             {
                 _сlients.Add(CompleateСlientDate(i));
             }
         }
 
-        public DataBaze(List<Сlient> сlients)
+        public DataBaze(ObservableCollection<Сlient> сlients)
         {
             _сlients = сlients;
         }
@@ -41,10 +42,16 @@ namespace FullBazeAndNewField
             return new Сlient(_lastName + number, _name + number, _middleName + number, _phoneNumber, _passportSeriesAndNumber);
         }
 
-        public Сlient GetListСlient(int count, ref int lenghtList)
+        public bool TryGetСlient(int count)
         {
-            lenghtList = _сlients.Count;
-            return _сlients[count];
+            bool isComleatedGetСlient = count < _сlients.Count;
+            _countNextСlient = isComleatedGetСlient ? count : 0;
+            return isComleatedGetСlient;
+        }
+
+        public Сlient GetСlient()
+        {
+            return _сlients[_countNextСlient];
         }
 
         private bool RundomPassportIsCompleted()

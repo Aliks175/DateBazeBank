@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace FullBazeAndNewField
+﻿namespace FullBazeAndNewField
 {
     public class Сlient
     {
@@ -19,7 +16,7 @@ namespace FullBazeAndNewField
 
         public Сlient(string lastName, string name, string middleName, double phoneNumber, double passportSeriesAndNumber = 0)
         {
-            changeControl = new ChangeControl(6);
+            changeControl = new ChangeControl(5);
             LastName = lastName;
             Name = name;
             MiddleName = middleName;

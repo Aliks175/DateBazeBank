@@ -14,18 +14,15 @@
 
         protected string _middleName;
 
+        protected string _displayPhoneNumber;
+
         protected double _phoneNumber;
 
         protected string _displayPassportSeriesAndNumber;
 
         protected double _valuePassportSeriesAndNumber;
 
-        public ClientInfo clientInfo;
-
-        public Consultant()
-        {
-            clientInfo = new ClientInfo();
-        }
+        public ClientInfo ClientInfo;
 
         public override string ToString()
         {
@@ -34,13 +31,14 @@
 
         public void NewClient(Сlient сlients)
         {
+            ClientInfo = new ClientInfo(сlients.changeControl);
             _lastName = сlients.LastName;
             _name = сlients.Name;
             _middleName = сlients.MiddleName;
             _phoneNumber = сlients.PhoneNumber;
             _valuePassportSeriesAndNumber = сlients.PassportSeriesAndNumber;
             CheckDisplayPassport(сlients.PassportSeriesAndNumber);
-
+            CheckDisplayPhoneNumber(сlients.PhoneNumber);
         }
 
         protected virtual void CheckDisplayPassport(double passportSeriesAndNumber)
@@ -51,19 +49,27 @@
                 _displayPassportSeriesAndNumber = new string('*', passportSeriesAndNumber.ToString().Length);
         }
 
-        public void ShowInfo(out string lastName, out string name, out string middleName, out double phoneNumber, out string passportSeriesAndNumber)
+        protected virtual void CheckDisplayPhoneNumber(double phoneNumber)
+        {
+            if (phoneNumber < 1)
+                _displayPhoneNumber = "Данных нет";
+            else
+                _displayPhoneNumber = phoneNumber.ToString();
+        }
+
+        public void ShowInfo(out string lastName, out string name, out string middleName, out string phoneNumber, out string passportSeriesAndNumber)
         {
             lastName = this._lastName;
             name = _name;
             middleName = _middleName;
-            phoneNumber = _phoneNumber;
+            phoneNumber = _displayPhoneNumber;
             passportSeriesAndNumber = _displayPassportSeriesAndNumber;
         }
 
         public Сlient SaveСlient()
         {
             Сlient сlient = new Сlient(_lastName, _name, _middleName, _phoneNumber, _valuePassportSeriesAndNumber);
-            сlient.changeControl = clientInfo.changeControl;
+            сlient.changeControl = ClientInfo.ChangeControl;
             return сlient;
         }
 
@@ -72,19 +78,20 @@
             NewPhoneNumber(CheckInput(tryPhoneNumber, _phoneNumber));
         }
 
-        protected void NewPhoneNumber(double newPhone)
+        private void NewPhoneNumber(double newPhone)
         {
             if (_phoneNumber != newPhone)
             {
                 if (_phoneNumber == 0)
                 {
-                    clientInfo.LastChange(ChangeControl.WhatField.PhoneNumber, ChangeControl.WhatHasChanged.Add, ChangeControl.User.Consultant);
+                    ClientInfo.SetLastChange(ChangeControl.WhatField.PhoneNumber, ChangeControl.WhatHasChanged.Add, ChangeControl.User.Consultant);
                 }
                 else
                 {
-                    clientInfo.LastChange(ChangeControl.WhatField.PhoneNumber, ChangeControl.WhatHasChanged.Change, ChangeControl.User.Consultant);
+                    ClientInfo.SetLastChange(ChangeControl.WhatField.PhoneNumber, ChangeControl.WhatHasChanged.Change, ChangeControl.User.Consultant);
                 }
                 _phoneNumber = newPhone;
+                CheckDisplayPhoneNumber(_phoneNumber);
             }
         }
 

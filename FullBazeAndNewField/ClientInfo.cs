@@ -6,17 +6,17 @@ namespace FullBazeAndNewField
 {
     public struct ChangeControl
     {
-        public Dictionary<string, string[]> InfoChanges;
+        public Dictionary<FiendTargetOnDictionary, string[]> InfoChanges;
 
-        public ChangeControl(int value = 6)
+        public ChangeControl(int count)
         {
-            InfoChanges = new Dictionary<string, string[]>();
-            string[] timesChengers = new string[value];
-            string[] addOrChange = new string[value];
-            string[] whoChanged = new string[value];
-            InfoChanges.Add("timesChengers", timesChengers);
-            InfoChanges.Add("addOrChange", addOrChange);
-            InfoChanges.Add("whoChanged", whoChanged);
+            InfoChanges = new Dictionary<FiendTargetOnDictionary, string[]>();
+            string[] timesChengers = new string[5] { " ", " ", " ", " ", " " };
+            string[] addOrChange = new string[5] { " ", " ", " ", " ", " " };
+            string[] whoChanged = new string[5] { " ", " ", " ", " ", " " };
+            InfoChanges.Add(FiendTargetOnDictionary.addOrChange, addOrChange);
+            InfoChanges.Add(FiendTargetOnDictionary.timesChengers, timesChengers);
+            InfoChanges.Add(FiendTargetOnDictionary.whoChanged, whoChanged);
         }
 
         public enum User
@@ -35,8 +35,7 @@ namespace FullBazeAndNewField
         public enum WhatHasChanged
         {
             Add,
-           // Del,
-            Change 
+            Change
         }
 
         public enum WhatField
@@ -51,28 +50,37 @@ namespace FullBazeAndNewField
 
     public class ClientInfo
     {
-        public ChangeControl changeControl {  get;private set; }
+        public ChangeControl ChangeControl { get; private set; }
 
         public ClientInfo()
         {
-            changeControl = new ChangeControl(6);
+            ChangeControl = new ChangeControl(5);
+        }
+        public ClientInfo(ChangeControl changeControl)
+        {
+            this.ChangeControl = changeControl;
         }
 
-        //public ClientInfo(ChangeControl newchangeControl)
-        //{
-        //    changeControl = newchangeControl;
-        //}
-
-        public void LastChange(ChangeControl.WhatField field, ChangeControl.WhatHasChanged changer, ChangeControl.User user)
+        public void NewChangeControl(ChangeControl newchangeControl)
         {
-            changeControl.InfoChanges["timesChengers"][(int)field] = DateTime.Now.ToString();
-            changeControl.InfoChanges["addOrChange"][(int)field] = changer.ToString();
-            changeControl.InfoChanges["whoChanged"][(int)field] = user.ToString();
+            ChangeControl = newchangeControl;
+        }
+
+        public void SetLastChange(ChangeControl.WhatField field, ChangeControl.WhatHasChanged changer, ChangeControl.User user)
+        {
+            ChangeControl.InfoChanges[FiendTargetOnDictionary.timesChengers][(int)field] = DateTime.Now.ToString();
+            ChangeControl.InfoChanges[FiendTargetOnDictionary.addOrChange][(int)field] = changer.ToString();
+            ChangeControl.InfoChanges[FiendTargetOnDictionary.whoChanged][(int)field] = user.ToString();
         }
 
         public string Show(FiendTargetOnDictionary fiendTarget, ChangeControl.WhatField field)
         {
-            return changeControl.InfoChanges[fiendTarget.ToString()][(int)field];
+            return ChangeControl.InfoChanges[fiendTarget][(int)field];
+        }
+
+        public bool NoEmptyDictionary(FiendTargetOnDictionary fiendTarget, ChangeControl.WhatField field, string nuleable)
+        {
+            return ChangeControl.InfoChanges[fiendTarget][(int)field] != nuleable;
         }
     }
 }

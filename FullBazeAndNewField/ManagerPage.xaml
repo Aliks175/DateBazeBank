@@ -23,6 +23,12 @@
             <Button Name="SaveButton" Content="Сохранить" HorizontalAlignment="Left" Margin="8,225,0,0" VerticalAlignment="Top" Height="30" Width="136" Click="Save"/>
             <Button Name="RefreshButton" Content="Обновить" HorizontalAlignment="Left" Margin="208,225,0,0" VerticalAlignment="Top" Height="30" Width="134" Click="RefrushButton" />
             <CheckBox Name="CheckNewClient" Content="Новый клиент" HorizontalAlignment="Left" Margin="40,189,0,0" VerticalAlignment="Top" FontSize="20" Height="30" Width="192" BorderThickness="2,2,2,2" Click="CheckNewClient_Click"/>
+            <TextBlock Name="LastNameInfo" Padding="10,15" Margin="237,4,0,0" TextWrapping="Wrap" Text="" Height="32" Width="334" Cursor="" RenderTransformOrigin="0.5,0.5" Panel.ZIndex="1" Foreground="Gray" HorizontalAlignment="Left" VerticalAlignment="Top" />
+            <TextBlock Name="PhoneNumberInfo" Padding="10,15" Margin="237,115,0,0" TextWrapping="Wrap" Text="" Height="32" Width="334" Cursor="" RenderTransformOrigin="0.5,0.5" Panel.ZIndex="1" Foreground="Gray" HorizontalAlignment="Left" VerticalAlignment="Top" />
+            <TextBlock Name="NameFieldInfo" Padding="10,15" Margin="237,41,0,0" TextWrapping="Wrap" Text="" Height="32" Width="334" Cursor="" RenderTransformOrigin="0.5,0.5" Panel.ZIndex="1" Foreground="Gray" HorizontalAlignment="Left" VerticalAlignment="Top" />
+            <TextBlock Name="MiddleNameInfo" Padding="10,15" Margin="237,78,0,0" TextWrapping="Wrap" Text="" Height="32" Width="334" Cursor="" RenderTransformOrigin="0.5,0.5" Panel.ZIndex="1" Foreground="Gray" HorizontalAlignment="Left" VerticalAlignment="Top" />
+            <TextBlock Name="PassportSeriesAndNumberInfo" Padding="10,15" Margin="237,152,0,0" TextWrapping="Wrap" Text="" Height="32" Width="334" Cursor="" RenderTransformOrigin="0.5,0.5" Panel.ZIndex="1" Foreground="Gray" HorizontalAlignment="Left" VerticalAlignment="Top" />
+
         </Grid>
     </Grid>
 </Page>

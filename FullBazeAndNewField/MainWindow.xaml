@@ -13,12 +13,10 @@
           Margin="0,10,10,0"
           VerticalAlignment="Top"
           Width="230"  Height="36" SelectionChanged="ChooseUser_SelectionChanged"/>
-        <ComboBox Name="ChooseClient" HorizontalAlignment="Right"
-          Margin="0,10,560,0"
+        <ComboBox Name="ChooseClient"
+          Margin="20,10,0,0"
           VerticalAlignment="Top"
-          DisplayMemberPath="LastName"
-          Width="230"  Height="36" SelectionChanged="ChooseClient_SelectionChanged">
-        </ComboBox>
+          DisplayMemberPath="LastName"  Height="36" SelectionChanged="ChooseClient_SelectionChanged" HorizontalAlignment="Left" Width="230"/>
         <Frame x:Name="FrameList" Content="Frame" Margin="0,51,0,0"/>
     </Grid>
 </Window>

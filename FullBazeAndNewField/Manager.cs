@@ -1,10 +1,14 @@
 ﻿namespace FullBazeAndNewField
 {
-    internal class Manager : Consultant
+    public interface ICreateable
+    {
+        void CreateNewClient(string LastName, string Name, string MiddleName, string newPhoneNumber, string valuePassportSeriesAndNumber);
+    }
+
+    internal class Manager : Consultant, ICreateable
     {
         public override string ToString()
         {
-
             return "Manager";
         }
 
@@ -14,7 +18,6 @@
                 _displayPassportSeriesAndNumber = "Данных нет";
             else
                 _displayPassportSeriesAndNumber = passportSeriesAndNumber.ToString();
-
         }
 
         public void ChangeDate(string LastName, string Name, string MiddleName, string newPhoneNumber, string valuePassportSeriesAndNumber)
@@ -27,19 +30,56 @@
             CheckDisplayPassport(_valuePassportSeriesAndNumber);
         }
 
-        protected void SetNewNumber(ChangeControl.WhatField field, double newPhone, ref double _phoneNumber)
+        public void CreateNewClient(string LastName, string Name, string MiddleName, string PhoneNumber, string valuePassportSeriesAndNumber)
         {
-            if (_phoneNumber != newPhone)
+            string newLastName;
+            string newName;
+            string newMiddleName;
+            double newPhoneNumber;
+            double newPassportSeriesAndNumber;
+
+            newLastName = TryNewName(LastName);
+            newName = TryNewName(Name);
+            newMiddleName = TryNewName(MiddleName);
+            newPhoneNumber = CheckInput(PhoneNumber);
+            newPassportSeriesAndNumber = CheckInput(valuePassportSeriesAndNumber);
+            Сlient сlient = new Сlient(newLastName, newName, newMiddleName, newPhoneNumber, newPassportSeriesAndNumber);
+            NewClient(сlient);
+        }
+
+        protected double CheckInput(string tryNewPhoneNumber)
+        {
+            double tempPhoneNumber = 0;
+            if (double.TryParse(tryNewPhoneNumber, out double newPhoneNumber))
             {
-                if (_phoneNumber == 0)
+                tempPhoneNumber = newPhoneNumber;
+            }
+            return tempPhoneNumber;
+        }
+
+        private string TryNewName(string tryNewName)
+        {
+            string tempName = " ";
+            if (tryNewName != null)
+            {
+                tempName = tryNewName;
+            }
+            return tempName;
+        }
+
+        protected void SetNewNumber(ChangeControl.WhatField field, double newPhoneNumber, ref double oldPhoneNumber)
+        {
+            if (oldPhoneNumber != newPhoneNumber)
+            {
+                if (oldPhoneNumber == 0)
                 {
-                    clientInfo.LastChange(field, ChangeControl.WhatHasChanged.Add, ChangeControl.User.Manager);
+                    ClientInfo.SetLastChange(field, ChangeControl.WhatHasChanged.Add, ChangeControl.User.Manager);
                 }
                 else
                 {
-                    clientInfo.LastChange(field, ChangeControl.WhatHasChanged.Change, ChangeControl.User.Manager);
+                    ClientInfo.SetLastChange(field, ChangeControl.WhatHasChanged.Change, ChangeControl.User.Manager);
                 }
-                _phoneNumber = newPhone;
+                oldPhoneNumber = newPhoneNumber;
             }
         }
 
@@ -47,14 +87,13 @@
         {
             if (oldName != NewName)
             {
-
-                if (oldName == null)
+                if (oldName == string.Empty)
                 {
-                    clientInfo.LastChange(field, ChangeControl.WhatHasChanged.Add, ChangeControl.User.Manager);
+                    ClientInfo.SetLastChange(field, ChangeControl.WhatHasChanged.Add, ChangeControl.User.Manager);
                 }
                 else
                 {
-                    clientInfo.LastChange(field, ChangeControl.WhatHasChanged.Change, ChangeControl.User.Manager);
+                    ClientInfo.SetLastChange(field, ChangeControl.WhatHasChanged.Change, ChangeControl.User.Manager);
                 }
                 oldName = NewName;
             }
@@ -63,17 +102,11 @@
         private string TryNewName(string tryNewName, string oldName)
         {
             string tempName = oldName;
-
             if (tryNewName != null)
             {
                 tempName = tryNewName;
             }
             return tempName;
         }
-
-
-
-
-
     }
 }

@@ -9,7 +9,7 @@
       Title="ConsultantPage">
 
     <Grid Margin="0,0,10,10">
-        <Grid Margin="10,10,386,178">
+        <Grid Margin="10,10,199,178">
             <TextBox Name="LastName" IsReadOnly="True" HorizontalAlignment="Left" Margin="4,4,0,0" TextWrapping="Wrap" Text=" " VerticalAlignment="Top" Width="228" Height="32"/>
             <TextBox Name="NameField" IsReadOnly="True" HorizontalAlignment="Left" Margin="4,41,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="228" Height="32"/>
             <TextBox x:Name="MiddleName" IsReadOnly="True" HorizontalAlignment="Left" Margin="4,78,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="228" Height="32"/>
@@ -22,7 +22,11 @@
             <TextBlock Margin="249,152,16,0" TextWrapping="Wrap" Text="Серия и номер паспорта" VerticalAlignment="Top" Height="32"/>
             <Button Content="Сохранить" HorizontalAlignment="Left" Margin="50,211,0,0" VerticalAlignment="Top" Height="30" Width="136" Click="Save"/>
             <Button Content="Обновить" HorizontalAlignment="Left" Margin="249,211,0,0" VerticalAlignment="Top" Height="30" Width="135" Click="RefrushButton" />
-            <TextBlock Name="PhoneNumberInfo" Margin="10,189,0,0" TextWrapping="Wrap" Text="--" Height="32" Width="360" Cursor="" RenderTransformOrigin="0.5,0.5" Panel.ZIndex="1" HorizontalAlignment="Left" VerticalAlignment="Top" />
+            <TextBlock Name="LastNameInfo" Padding="10,15" Margin="237,4,0,0" TextWrapping="Wrap" Text="" Height="32" Width="334" Cursor="" RenderTransformOrigin="0.5,0.5" Panel.ZIndex="1" Foreground="Gray" HorizontalAlignment="Left" VerticalAlignment="Top" />
+            <TextBlock Name="NameFieldInfo" Padding="10,15" Margin="237,41,0,0" TextWrapping="Wrap" Text="" Height="32" Width="334" Cursor="" RenderTransformOrigin="0.5,0.5" Panel.ZIndex="1" Foreground="Gray" HorizontalAlignment="Left" VerticalAlignment="Top" />
+            <TextBlock Name="MiddleNameInfo" Padding="10,15" Margin="237,78,0,0" TextWrapping="Wrap" Text="" Height="32" Width="334" Cursor="" RenderTransformOrigin="0.5,0.5" Panel.ZIndex="1" Foreground="Gray" HorizontalAlignment="Left" VerticalAlignment="Top" />
+            <TextBlock Name="PhoneNumberInfo" Padding="10,15" Margin="237,115,0,0" TextWrapping="Wrap" Text="" Height="32" Width="334" Cursor="" RenderTransformOrigin="0.5,0.5" Panel.ZIndex="1" Foreground="Gray" HorizontalAlignment="Left" VerticalAlignment="Top" />
+            <TextBlock Name="PassportSeriesAndNumberInfo" Padding="10,15" Margin="237,152,0,0" TextWrapping="Wrap" Text="" Height="32" Width="334" Cursor="" RenderTransformOrigin="0.5,0.5" Panel.ZIndex="1" Foreground="Gray" HorizontalAlignment="Left" VerticalAlignment="Top" />
 
         </Grid>
 
